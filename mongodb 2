@@ -162,7 +162,8 @@ db.movies.aggregate([{$group :{_id:"$language",count:{$count:{}}}}])
     topics: { compute: 5, serverless: 5, storage: 5, database: 3, security: 2 }
 
     // duration:"25hours",
-    //coursefee:10000,
+    //coursefee:10000,s
+    //nojhoion
   }
 ]
 
