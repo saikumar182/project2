@@ -160,6 +160,9 @@ db.movies.aggregate([{$group :{_id:"$language",count:{$count:{}}}}])
     duration: '20hours',
     coursefee: 10000,
     topics: { compute: 5, serverless: 5, storage: 5, database: 3, security: 2 }
+
+    // duration:"25hours",
+    //coursefee:10000,
   }
 ]
 
