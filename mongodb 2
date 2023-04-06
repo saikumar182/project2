@@ -1,0 +1,170 @@
+db.movies.aggregate([{$group :{_id:"$language",count:{$count:{}}}}])
+[
+  { _id: [ 'telugu', 'hindi', 'english' ], count: 2 },
+  { _id: 'telugu', count: 2 }
+==================================================================
+   (2)
+
+
+     db.courses.find({duration :{$lt:"30"}}).count()
+
+================================================================
+(4)
+
+  img> db.courses.aggregate( { "$match": {} }, { "$sort": { "duration": -1, "fee": -1 } })
+ [
+  {
+    _id: ObjectId("63fdf03ddb377f1b1dca9ae7"),
+    title: 'java',
+    fee: '10000',
+    duration: '30hrs',
+    prerequiste: [ 'c', 'c++' ],
+    topics: { collections: 4, exceptions: 6, oops: 10 }
+  },
+  {
+    _id: ObjectId("63fdf03ddb377f1b1dca9ae8"),
+    title: 'python',
+    fee: '7000',
+    duration: '25hrs',
+    prerequiste: [ 'java', 'c' ],
+    topics: { pointers: 4, librarys: 6, oops: 8 }
+  },
+  {
+    _id: ObjectId("63fdf03ddb377f1b1dca9ae9"),
+    title: 'sql',
+    fee: '4000',
+    duration: '20hrs',
+    prerequiste: [ 'dbms', 'c' ],
+    topics: { functions: 4, joins: 6, views: 8 }
+  }
+ ]
+
+=============================================================================================
+(3)
+       db.courses.aggregate(
+...     {"$group":{_id:"$duration","avgfee":{$avg:"$fee"}}})
+
+=============================================================================================
+   
+   (5)
+ db.courses.insertMany([{
+...   
+...   "title": "java",
+...   "fee": "10000",
+...   "duration": "30hrs",
+...   "prerequiste": [
+...     "c",
+...     "c++"
+...   ],
+...   "topics": {
+...     "collections": 4,
+...     "exceptions": 6,
+...     "oops": 10
+...   }
+... },
+... {
+...   
+...   "title": "python",
+...   "fee": "7000",
+...   "duration": "25hrs",
+...   "prerequiste": [
+...     "java",
+...     "c"
+...   ],
+...   "topics": {
+...     "pointers": 4,
+...     "librarys": 6,
+...     "oops": 8
+...   }
+... },
+... {
+...   
+...   "title": "sql",
+...   "fee": "7000",
+...   "duration": "25hrs",
+...   "prerequiste": [
+...     "dbms",
+...     "c"
+...   ],
+...   "topics": {
+...     "functions": 4,
+...     "joins": 6,
+...     "views": 8
+...   }
+... }
+... ])
+ {
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("63ff3f29c3b005a66d13ee31"),
+    '1': ObjectId("63ff3f29c3b005a66d13ee32"),
+    '2': ObjectId("63ff3f29c3b005a66d13ee33")
+  }
+ }
+================================================================
+ (6)
+
+   db.courses.updateOne(
+.. . {fee:6000},
+...  {$set:{duration:"20"}})
+   {
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+ }
+================================================================
+ (7)
+
+ img> db.courses. updateMany(
+... { title:"oracle"},
+... {$set:{fee:"8000",duration :"30"}},
+... {$upset :true})
+ {
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+ }
+
+  ===========================================================
+
+
+ (8)
+
+  img> db.courses.deleteOne({"fee":{"$lt":"8000"}})
+  { acknowledged: true, deletedCount: 1 }
+  img> db.courses.deleteMany({ duratipon : "30hrs", fee : {"$lt" : 8000}})
+  { acknowledged: true, deletedCount: 0 }
+  ==================================================================
+ (9)
+
+   img> db.courses.deleteOne({"prerequiste":"aws"})
+  { acknowledged: true, deletedCount: 1 }
+
+
+  =======================================================
+   (10)
+
+    db.movies.find({"cast.hero":"pavan kalyan"},{title:1,_id:0})
+     [ { title: 'kushi' }, { title: 'gabbar singh' } ]
+
+   ==========================================================
+ db.courses.find({"topics.security":{"$exists":true}})
+[
+  {
+    _id: ObjectId("64002d61871a04c0b336b362"),
+    title: 'AWS',
+    duration: '20hours',
+    coursefee: 10000,
+    topics: { compute: 5, serverless: 5, storage: 5, database: 3, security: 2 }
+  }
+]
+
+
+
+
+
+
